@@ -11,23 +11,21 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-  socket.on("sendCred", ({ path, baudRate }) => {
-    const SERIALPORT = new SerialPort({
-      path,
-      baudRate,
-    });
-    SERIALPORT.on("error", function (err) {
-      console.log("Error IDKWHYYY: ", err.message);
-    });
+  socket.on("sendCred", ({ path, baudRate }, callback) => {
+    const SERIALPORT = new SerialPort(
+      {
+        path,
+        baudRate,
+      },
+      (err) => console.log(err)
+    );
+
     const parser = SERIALPORT.pipe(new ReadlineParser({ delimiter: "\n" }));
-    parser.on("data", async (data) => {
-      await new Promise((res) => setTimeout(res, 1000)); // delay 200ms between each reading without delaying microcontroller
+    parser.on("data", (data) => {
       socket.emit("getParsedData", data);
     });
 
-    return SERIALPORT.on("open", function () {
-      console.log("connection established");
-    });
+    // return SERIALPORT.on("open", () => "connection established");
   });
 
   socket.on("disconnect", () => {

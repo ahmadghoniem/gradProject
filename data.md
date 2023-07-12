@@ -85,3 +85,18 @@ server and client are free to push messages to each other as they like this will
 mkdir websocketserver
 
 spawn a web socket server using the http server that we created
+
+// socketio client
+Debug / logging
+In order to see all the client debug output, run the following command on the browser console – including the desired scope – and reload your app page:
+
+localStorage.debug = '\*';
+
+const parser = port.pipe(new DelimiterParser({ delimiter: '\n' }))
+parser.on('data', console.log) // emits data after every '\n'
+
+Also, WebSockets is event-driven: both the server, and the client can react to events and messages.
+
+We can listen for a connection event, fire up a function when a new user connects to the server, emit a message (basically an event) over a socket, and much more.
+
+<!-- let webSocket = new WebSocket(location.origin.replace(/^http/, 'ws')); -->

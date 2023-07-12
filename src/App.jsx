@@ -14,7 +14,7 @@ import {
   Clients,
 } from "./features";
 import Layout from "./components/Layout";
-
+import Graph from "./components/Graph";
 import "./index.css";
 const isAdmin = true;
 const router = createBrowserRouter(
