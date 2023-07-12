@@ -3,15 +3,23 @@
   "type": "module",
   "scripts": {
     "client": "vite",
-    "server": "nodemon index.js",
+    "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "@headlessui/tailwindcss": "^0.1.3",
+    "@heroicons/react": "^1.0.6",
+    "@tremor/react": "^3.4.1",
     "concurrently": "^8.2.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "http": "^0.0.1-security",
     "nodemon": "^3.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "socket.io": "^4.7.1",
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
