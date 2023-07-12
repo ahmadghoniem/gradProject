@@ -15,7 +15,10 @@ io.on("connection", (socket) => {
     const SERIALPORT = new SerialPort({
       path,
       baudRate,
+      autoOpen: false,
     });
+    SERIALPORT.open();
+
     SERIALPORT.on("error", function (err) {
       console.log("Error IDKWHYYY: ", err.message);
     });
