@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
     });
     const parser = SERIALPORT.pipe(new ReadlineParser({ delimiter: "\n" }));
     parser.on("data", async (data) => {
-      await new Promise((res) => setTimeout(res, 1000)); // delay 200ms between each reading without delaying microcontroller
+      // await new Promise((res) => setTimeout(res, 5000)); // delay 200ms between each reading without delaying microcontroller
       socket.emit("getParsedData", data);
     });
 

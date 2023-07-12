@@ -7,26 +7,20 @@ const socket = io.connect("http://localhost:3003", {
   transports: ["websocket"],
   autoConnect: false,
 });
-
+const onSubmit = ({ path, baudRate }) => {
+  socket.connect();
+  socket.emit(
+    "sendCred",
+    { path, baudRate: parseInt(baudRate) },
+    (response) => {
+      console.log(response); // "got it"
+    }
+  );
+};
 const Operation = () => {
   const [serialPorts, setSerialPorts] = useState(null);
-  const [chartdata, setChartData] = useState([
-    {
-      time: 0,
-      temp: 23,
-    },
-  ]);
+  const [chartdata, setChartData] = useState([]);
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ path, baudRate }) => {
-    socket.connect();
-    socket.emit(
-      "sendCred",
-      { path, baudRate: parseInt(baudRate) },
-      (response) => {
-        console.log(response); // "got it"
-      }
-    );
-  };
 
   useEffect(() => {
     socket.on("getParsedData", (data) => {
@@ -35,20 +29,21 @@ const Operation = () => {
         { time: prevData.length * 1, temp: data },
       ]);
     });
+
     socket.on("connect", () => {
-      alert("connected");
+      console.log("connected");
       //live tag
     });
 
     socket.on("disconnect", () => {
-      alert("disconnected");
+      console.log("disconnected");
       //NOT LIVE
     });
 
     return () => {
       socket.disconnect();
     };
-  });
+  }, [socket]);
 
   async function listPorts() {
     let res = await fetch("./api/listPorts");
@@ -60,19 +55,7 @@ const Operation = () => {
     <section className="flex flex-col">
       <h1>Operation</h1>
       <h1>live or not live</h1>
-      <button
-        onClick={() =>
-          setChartData((prevData) => [
-            ...prevData,
-            {
-              time: prevData.length,
-              temp: 23.53,
-            },
-          ])
-        }
-      >
-        ADD NEW{" "}
-      </button>
+
       <button onClick={listPorts}>list COM PORTS</button>
       {serialPorts !== null && (
         <div>
