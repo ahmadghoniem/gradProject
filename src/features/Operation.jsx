@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Graph from "../components/Graph";
 import { io } from "socket.io-client";
+import { Badge } from "@tremor/react";
+import { SignalIcon } from "@heroicons/react/24/solid";
 
 const socket = io.connect("http://localhost:3003", {
   transports: ["websocket"],
   autoConnect: false,
 });
-const onSubmit = ({ path, baudRate }) => {
-  socket.connect();
-  socket.emit(
-    "sendCred",
-    { path, baudRate: parseInt(baudRate) },
-    (response) => {
-      console.log(response); // "got it"
-    }
+
+const onSubmit = async ({ path, baudRate }) => {
+  let request = await fetch(
+    `./api/serialPort?path=${path}&baudRate=${baudRate}`
   );
+  let response = await request.json();
+  console.log(response);
 };
 const Operation = () => {
   const [serialPorts, setSerialPorts] = useState(null);
@@ -92,6 +92,10 @@ const Operation = () => {
         />
         <input type="submit" value="send" />
       </form>
+
+      <button onClick={() => socket.connect()}>listen live</button>
+      <Badge icon={SignalIcon}>live</Badge>
+
       <button onClick={() => socket.disconnect()}>disconnect</button>
 
       <Graph chartdata={chartdata} />

@@ -1,31 +1,40 @@
-import { NavLink } from "react-router-dom";
+// import { li } from "react-router-dom";
 
 const SideNav = () => {
   return (
-    <aside className="flex flex-col justify-center p-4">
-      <h1>Dashboard</h1>
-      <nav className="flex flex-col">
-        <NavLink className="[&.active]:text-violet-700" to="/">
+    <nav className="py-8 px-4 bg-white rounded-r-3xl">
+      <ul className="flex flex-col gap-8 text-center">
+        <li className="" to="/">
+          <h1 className="font-sans text-indigo-600 text-8xl">UTM</h1>
+          <span className="mt-2 text-2xl">Dashboard</span>
+        </li>
+        <li
+          className="text-xl [&.active]:text-indigo-500 [&.active]:font-bold active"
+          to="/"
+        >
           Overview
-        </NavLink>
-        <NavLink className="[&.active]:text-violet-700" to="/Operation">
-          Operation:Test
-        </NavLink>
-        <NavLink className="[&.active]:text-violet-700" to="/Clients">
+        </li>
+        <li className="text-xl [&.active]:text-violet-700" to="/Operation">
+          Operation
+        </li>
+        <li className="text-xl [&.active]:text-violet-700" to="/Clients">
           Clients
-        </NavLink>{" "}
-        {/**If logged in */}
-        <NavLink className="[&.active]:text-violet-700" to="/Analytics">
+        </li>
+        <li className="text-xl [&.active]:text-violet-700" to="/Analytics">
           Analytics
-        </NavLink>
-        <NavLink className="[&.active]:text-violet-700" to="/About">
+        </li>
+        <li className="text-xl [&.active]:text-violet-700" to="/About">
           About
-        </NavLink>
-      </nav>
-      <div id="contactUs">
-        first steps can be hard contact us if you are having a problem
-      </div>
-    </aside>
+        </li>
+        <li className="text-xl [&.active]:text-violet-700" to="/Help">
+          Help
+          <small className="block mt-2 text-base text-left">
+            First steps can sometimes be challenging,
+            <br /> Don't worry! We're here to help.
+          </small>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
